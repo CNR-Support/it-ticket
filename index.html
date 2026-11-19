@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#a92d32">
+  <meta name="description" content="IT-Störung an der CNR melden">
+  <title>CNR · IT-Support</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <img class="brand-logo" src="assets/cnr-logo.jpg" alt="CNR Carl-Netter-Realschule Bühl – Logo">
+      <div class="brand-copy">
+        <span class="brand-kicker">CARL-NETTER-REALSCHULE BÜHL</span>
+        <strong>IT-Support</strong>
+      </div>
+      <div class="topbar-tag"><span class="status-dot"></span> Störungsmeldung</div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">CARL-NETTER-REALSCHULE BÜHL · IT-SUPPORT</p>
+        <h1>Technisches Problem?<br><em>Melde es hier.</em></h1>
+        <p class="hero-lead">Mit deiner Meldung hilfst du uns, technische Probleme schnell zu finden und zu beheben. Fülle dazu bitte die folgenden Felder aus.</p>
+      </div>
+      <div class="hero-mark" aria-hidden="true"><span>IT</span><small>SUPPORT</small></div>
+    </section>
+
+    <section class="form-card">
+      <div class="card-heading">
+        <div>
+          <span class="step-label">SCHRITT 1</span>
+          <h2>Welches Gerät ist betroffen?</h2>
+          <p>Wähle die passende Gerätegruppe aus.</p>
+        </div>
+        <span class="required-note">* Pflichtfelder</span>
+      </div>
+      <form id="ticketForm">
+        <fieldset class="device-grid" aria-label="Gerätegruppe">
+          <label class="device-tile"><input type="radio" name="category" value="Beamer" required><span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="11" rx="1.5"/><path d="M8 20h8M12 16v4M7 9h10"/></svg></span><span class="tile-name">Beamer</span><span class="tile-hint">Projektor / Anzeige</span><span class="tile-check">✓</span></label>
+          <label class="device-tile"><input type="radio" name="category" value="Visualiser"><span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l2 5H5l2-5Z"/><path d="M12 8v4m-5 9h10M9 12h6l2 9H7l2-9Z"/><circle cx="12" cy="5.5" r=".8"/></svg></span><span class="tile-name">Visualiser</span><span class="tile-hint">Dokumentenkamera</span><span class="tile-check">✓</span></label>
+          <label class="device-tile"><input type="radio" name="category" value="Drucker"><span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5M6 17H4V9h16v8h-2"/><path d="M7 14h10v7H7zM17 11h.01"/></svg></span><span class="tile-name">Drucker</span><span class="tile-hint">Drucken / Kopieren</span><span class="tile-check">✓</span></label>
+          <label class="device-tile"><input type="radio" name="category" value="Lautsprecher"><span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M17 9a5 5 0 0 1 0 6M19 6a9 9 0 0 1 0 12"/></svg></span><span class="tile-name">Lautsprecher</span><span class="tile-hint">Audio / Ton</span><span class="tile-check">✓</span></label>
+          <label class="device-tile"><input type="radio" name="category" value="Rechner"><span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4M8 8h8M8 12h5"/></svg></span><span class="tile-name">Rechner</span><span class="tile-hint">PC / Laptop</span><span class="tile-check">✓</span></label>
+          <label class="device-tile"><input type="radio" name="category" value="iPad"><span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 5h4M11 19h2"/></svg></span><span class="tile-name">iPad</span><span class="tile-hint">Tablet / Mobilgerät</span><span class="tile-check">✓</span></label>
+
+          <label class="device-tile">
+            <input type="radio" name="category" value="Digitale Tools">
+            <span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4M8 9l2 2 4-4M16 12h.01"/></svg></span>
+            <span class="tile-name">Digitale Tools</span><span class="tile-hint">Apps / Lernplattformen / Software</span><span class="tile-check">✓</span>
+          </label>
+          <label class="device-tile">
+            <input type="radio" name="category" value="Sonstiges">
+            <span class="tile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>
+            <span class="tile-name">Sonstiges</span><span class="tile-hint">Andere technische Probleme</span><span class="tile-check">✓</span>
+          </label>
+        </fieldset>
+
+        <div class="section-divider"></div>
+        <div class="card-heading compact">
+          <div><span class="step-label">SCHRITT 2</span><h2>Wo tritt das Problem auf?</h2></div>
+        </div>
+        <div class="field">
+          <label for="room">Raum oder Standort <b>*</b></label>
+          <input id="room" name="room" type="text" maxlength="80" placeholder="z. B. B204, Lehrerzimmer oder Raum 12" required>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="card-heading compact">
+          <div><span class="step-label">SCHRITT 3</span><h2>Wer meldet die Störung?</h2></div>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="reporter">Vor- und Nachname <b>*</b></label>
+            <input id="reporter" name="reporter" type="text" maxlength="120" placeholder="Dein Name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">E-Mail-Adresse <b>*</b></label>
+            <input id="email" name="email" type="email" maxlength="190" placeholder="name@schule.de" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="card-heading compact">
+          <div><span class="step-label">SCHRITT 4</span><h2>Beschreibe das Problem</h2><p>Je genauer deine Beschreibung ist, desto besser können wir helfen.</p></div>
+        </div>
+        <div class="field">
+          <label for="description">Fehlerbeschreibung <b>*</b></label>
+          <textarea id="description" name="description" minlength="8" maxlength="5000" rows="7" placeholder="Was funktioniert nicht? Was sollte eigentlich passieren? Erscheint eine Fehlermeldung? Seit wann besteht das Problem? Was hast du bereits ausprobiert?" required></textarea>
+          <div class="field-bottom"><small>Bitte keine Passwörter oder vertraulichen Schülerdaten eintragen.</small><small id="counter">0 / 5000</small></div>
+        </div>
+
+        <div class="trap" aria-hidden="true"><label for="website">Nicht ausfüllen</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <label class="privacy-check"><input id="privacy" type="checkbox" required><span>Ich habe den Datenschutzhinweis gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Störungsmeldung einverstanden. <b>*</b></span></label>
+
+        <div class="submit-area">
+          <button id="submitBtn" type="submit"><span>Störungsmeldung absenden</span><b aria-hidden="true">→</b></button>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+          <p class="secure-note"><span>▣</span> Deine Angaben werden ausschließlich zur Bearbeitung der IT-Störung verwendet.</p>
+        </div>
+      </form>
+    </section>
+    <footer><span>CNR · Carl-Netter-Realschule Bühl</span><span>IT-Support · Gemeinsam lösen wir das.</span></footer>
+  </main>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
