@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#171719">
+<title>CNR · IT-Administration</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <img src="../assets/cnr-logo.jpg" alt="CNR-Logo">
+    <div><small>CARL-NETTER-REALSCHULE BÜHL</small><strong>IT-Administration</strong></div>
+  </div>
+  <button id="logoutBtn" class="logout hidden">Abmelden ↗</button>
+</header>
+
+<main class="shell">
+  <section id="loginView" class="login-card">
+    <div class="eyebrow">GESCHÜTZTER BEREICH</div>
+    <h1>Administrator-Login</h1>
+    <p class="muted">Melde dich mit dem zentralen CNR-Admin-Zugang an.</p>
+    <form id="loginForm">
+      <label for="username">Benutzername</label>
+      <input id="username" autocomplete="username" required maxlength="80" placeholder="Administrator">
+      <label for="password">Passwort</label>
+      <input id="password" type="password" autocomplete="current-password" required maxlength="200" placeholder="Passwort">
+      <button class="primary" type="submit" id="loginBtn">Sicher anmelden <span>→</span></button>
+      <p id="loginMessage" class="message" role="status"></p>
+    </form>
+  </section>
+
+  <section id="dashboardView" class="hidden">
+    <div class="page-title">
+      <div><div class="eyebrow">TICKETVERWALTUNG</div><h1>Übersicht</h1><p class="muted">Eingegangene IT-Störungen der CNR</p></div>
+      <button class="refresh" id="refreshBtn">↻ Aktualisieren</button>
+    </div>
+
+    <div class="stats">
+      <article><strong id="totalCount">0</strong><span>Alle Tickets</span></article>
+      <article class="red"><strong id="newCount">0</strong><span>Neu</span></article>
+      <article class="amber"><strong id="progressCount">0</strong><span>In Bearbeitung</span></article>
+      <article class="green"><strong id="doneCount">0</strong><span>Erledigt</span></article>
+    </div>
+
+    <section class="list-card">
+      <div class="list-head"><div><h2>Alle Meldungen</h2><p class="muted">Ticket auswählen, um Details zu bearbeiten.</p></div></div>
+      <div class="filters">
+        <input id="searchInput" placeholder="Suche: Ticket, Raum, Name …" aria-label="Tickets durchsuchen">
+        <select id="statusFilter" aria-label="Nach Status filtern">
+          <option value="">Alle Status</option><option>Neu</option><option>In Bearbeitung</option><option>Wartet auf Rückmeldung</option><option>Erledigt</option>
+        </select>
+        <select id="categoryFilter" aria-label="Nach Gerätegruppe filtern">
+          <option value="">Alle Gerätegruppen</option>
+          <option>Beamer</option><option>Visualiser</option><option>Drucker</option><option>Lautsprecher</option><option>Rechner</option><option>iPad</option><option>Digitale Tools</option><option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Ticket</th><th>Gerät</th><th>Raum</th><th>Meldende Person</th><th>Eingang</th><th>Status</th></tr></thead>
+        <tbody id="ticketRows"><tr><td colspan="6" class="empty">Noch keine Tickets geladen.</td></tr></tbody></table>
+      </div>
+      <p id="listMessage" class="message"></p>
+    </section>
+  </section>
+</main>
+
+<div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+  <div class="modal-card">
+    <div class="modal-head"><div><div class="eyebrow">TICKETDETAILS</div><h2 id="detailTitle">Ticket</h2></div><button id="closeDetail" class="close" aria-label="Schließen">×</button></div>
+    <div id="detailContent"></div>
+  </div>
+</div>
+<script src="../config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
