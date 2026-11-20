@@ -42,12 +42,30 @@
     const workN=tickets.filter(t=>t.status==="In Bearbeitung").length;
     const doneN=tickets.filter(t=>t.status==="Erledigt").length;
     $("totalCount").textContent=tickets.length;$("newCount").textContent=newN;$("progressCount").textContent=workN;$("doneCount").textContent=doneN;
-    const q=$("searchInput").value.toLowerCase(),s=$("statusFilter").value,c=$("categoryFilter").value;
-    const filtered=tickets.filter(t=>(!s||t.status===s)&&(!c||t.category===c)&&[t.ticket_number,t.room,t.reporter,t.email,t.category].some(v=>String(v||"").toLowerCase().includes(q)));
-    $("ticketRows").innerHTML=filtered.length?filtered.map(t=>`<tr data-id="${t.id}"><td class="ticket-id">${esc(t.ticket_number)}</td><td>${esc(t.category)}</td><td>${esc(t.room)}</td><td>${esc(t.reporter)}</td><td>${esc(new Date(t.created_at).toLocaleString("de-DE"))}</td><td><span class="pill ${statusClass(t.status)}">${esc(t.status)}</span></td></tr>`).join(""):`<tr><td colspan="6" class="empty">Keine passenden Tickets gefunden.</td></tr>`;
+    const q=$("searchInput").value.toLowerCase(),s=$("statusFilter").value,c=$("categoryFilter").value,h=$("handledByFilter").value;
+    const filtered=tickets.filter(t=>(!s||t.status===s)&&(!c||t.category===c)&&(!h||(h==="__none"?!t.handled_by:(t.handled_by||"")===h))&&[t.ticket_number,t.room,t.reporter,t.email,t.category].some(v=>String(v||"").toLowerCase().includes(q)));
+    $("ticketRows").innerHTML=filtered.length?filtered.map(t=>`<tr data-id="${t.id}"><td class="ticket-id">${esc(t.ticket_number)}</td><td>${esc(t.category)}</td><td>${esc(t.room)}</td><td>${esc(t.reporter)}</td><td>${esc(new Date(t.created_at).toLocaleString("de-DE"))}</td><td><span class="pill ${statusClass(t.status)}">${esc(t.status)}</span></td><td><select class="handled-by-select" data-id="${t.id}" aria-label="Bearbeitet von ${esc(t.ticket_number)}"><option value="" ${!t.handled_by?"selected":""}>–</option><option value="DH" ${t.handled_by==="DH"?"selected":""}>DH</option><option value="KS" ${t.handled_by==="KS"?"selected":""}>KS</option></select></td></tr>`).join(""):`<tr><td colspan="7" class="empty">Keine passenden Tickets gefunden.</td></tr>`;
     [...$("ticketRows").querySelectorAll("tr[data-id]")].forEach(tr=>tr.addEventListener("click",()=>openTicket(tr.dataset.id)));
+    [...$("ticketRows").querySelectorAll(".handled-by-select")].forEach(sel=>sel.addEventListener("click",e=>e.stopPropagation()));
+    [...$("ticketRows").querySelectorAll(".handled-by-select")].forEach(sel=>sel.addEventListener("change",async e=>{
+      e.stopPropagation();
+      const id=sel.dataset.id, value=sel.value;
+      sel.disabled=true;
+      try{
+        await request(`/api/admin/tickets/${id}/handled-by`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({handled_by:value||null})});
+        const ticket=tickets.find(t=>String(t.id)===String(id));
+        if(ticket)ticket.handled_by=value||null;
+        render();
+      }catch(err){
+        setMessage($("listMessage"),err.message);
+        await loadTickets();
+      }finally{
+        const current=$("ticketRows").querySelector(`.handled-by-select[data-id="${id}"]`);
+        if(current)current.disabled=false;
+      }
+    }));
   }
-  ["searchInput","statusFilter","categoryFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",render));
+  ["searchInput","statusFilter","categoryFilter","handledByFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",render));
   $("refreshBtn").addEventListener("click",loadTickets);
 
   async function openTicket(id){
@@ -59,6 +77,7 @@
           ${detail("Gerätegruppe",t.category)}${detail("Raum",t.room)}
           ${detail("Meldende Person",t.reporter)}${detail("E-Mail",`<a href="mailto:${esc(t.email)}">${esc(t.email)}</a>`,true)}
           ${detail("Eingegangen",new Date(t.created_at).toLocaleString("de-DE"))}${detail("Aktueller Status",`<span class="pill ${statusClass(t.status)}">${esc(t.status)}</span>`,true)}
+          ${detail("Bearbeitet von",esc(t.handled_by||"Nicht zugewiesen"))}
         </div>
         <div class="block-title">Fehlerbeschreibung</div><div class="detail-item description">${esc(t.description)}</div>
         <div class="block-title">Status ändern</div>
