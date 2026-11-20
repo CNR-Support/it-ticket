@@ -8,6 +8,6 @@
  * gespeichert und es werden KEINE echten E-Mails versendet.
  */
 window.TICKET_CONFIG = {
-  API_BASE_URL: "https://DEIN-WORKER.DEIN-ACCOUNT.workers.dev", // nach Cloudflare-Deployment ersetzen
-  DEMO_MODE: true
+  API_BASE_URL: "https://cnr-it-ticket-api.broken-rain-fec4.workers.dev",
+  DEMO_MODE: false
 };
